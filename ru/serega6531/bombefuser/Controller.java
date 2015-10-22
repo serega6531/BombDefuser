@@ -1,19 +1,27 @@
 package ru.serega6531.bombefuser;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import ru.serega6531.bombefuser.enums.IndicatorLabel;
 import ru.serega6531.bombefuser.enums.PortType;
+import ru.serega6531.bombefuser.enums.WireColor;
+import ru.serega6531.bombefuser.solvers.SimpleWiresSolver;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
 
-    public void handleStartButtonAction(ActionEvent e) {
+    public void handleStartButtonAction(ActionEvent e) throws IOException {
         Button load = (Button) e.getTarget();
         Parent parent = load.getParent();
         TextField serialEdit = (TextField) parent.lookup("#SerialField");
@@ -55,10 +63,12 @@ public class Controller {
                 }
             }
 
-            inds = bylight[1].split(" ");
-            if(!inds[0].isEmpty()) {
-                for (String ind : inds) {
-                    indicators.add(new Indicator(IndicatorLabel.byName(ind), false));
+            if(bylight.length > 1) {
+                inds = bylight[1].split(" ");
+                if (!inds[0].isEmpty()) {
+                    for (String ind : inds) {
+                        indicators.add(new Indicator(IndicatorLabel.byName(ind), false));
+                    }
                 }
             }
         }
@@ -94,13 +104,71 @@ public class Controller {
         Main.batteries = Integer.parseInt(batteries);
         Main.serial = serial;
         Main.indicators = indicators;
+
+        Stage stage = new Stage(StageStyle.DECORATED);
+        Parent root = FXMLLoader.load(getClass().getResource("design/choose.fxml"));
+        stage.setTitle("Simple wires");
+        Scene scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setFullScreen(false);
+        stage.setMinWidth(800);
+        stage.setMinHeight(600);
+        stage.show();
+        Main.opened = stage;
+        Main.chooseStage = stage;
+        Main.primaryStage.hide();
     }
 
-    public void handleSimpleWiresButton(ActionEvent e) {
-
+    public void handleSimpleWiresButton(ActionEvent e) throws IOException {
+        Stage stage = new Stage(StageStyle.DECORATED);
+        Parent root = FXMLLoader.load(getClass().getResource("design/wire.fxml"));
+        stage.setTitle("Simple wires");
+        Scene scene = new Scene(root, 430, 120);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setFullScreen(false);
+        stage.setMinWidth(400);
+        stage.setMinHeight(150);
+        stage.show();
+        Main.chooseStage.hide();
+        Main.opened = stage;
     }
 
     public void handleButtonButton(ActionEvent e) {
 
     }
+
+    public void handleSimpleWiresSolveButton(ActionEvent e) {
+        Button load = (Button) e.getTarget();
+        Parent parent = load.getParent();
+        TextField serialEdit = (TextField) parent.lookup("#WiresField");
+        Label result = (Label) parent.lookup("#ResultLabel");
+
+        if(serialEdit.getText().isEmpty())
+            return;
+
+        String[] colors = serialEdit.getText().split(" ");
+        List<WireColor> wires = new ArrayList<>();
+
+        for(String color : colors){
+            WireColor wire = WireColor.byName(color);
+            if(wire == null){
+                result.setText("Wrong color name: " + color);
+                result.setVisible(true);
+                return;
+            } else
+                wires.add(wire);
+        }
+
+        if(wires.size() < 3 || wires.size() > 6){
+            result.setText("Wires count must be in range [3,6], found " + wires.size());
+            result.setVisible(true);
+            return;
+        }
+
+        result.setText(new SimpleWiresSolver(wires.toArray(new WireColor[wires.size()])).solve());
+        result.setVisible(true);
+    }
+
 }

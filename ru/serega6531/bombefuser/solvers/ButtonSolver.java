@@ -54,7 +54,7 @@ public class ButtonSolver implements Solver {
             }
         } else return "Hold button and input stripe color";
 
-        return "Inner error";
+        return "Internal error";
     }
 
 }

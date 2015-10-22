@@ -6,9 +6,9 @@
 
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.serega6531.bombefuser.Controller">
    <children>
-      <Button onAction="#handleButtonButton" prefHeight="26.0" prefWidth="101.0" text="Button" GridPane.rowIndex="0" />
+      <Button onAction="#handleButtonButton" prefHeight="26.0" prefWidth="126.0" text="Button" GridPane.rowIndex="0" />
 
-       <Button onAction="#handleSimpleWiresButton" prefHeight="26.0" prefWidth="101.0" text="Simple wires" GridPane.rowIndex="1" />
+       <Button onAction="#handleSimpleWiresButton" prefHeight="26.0" prefWidth="127.0" text="Simple wires" GridPane.rowIndex="1" />
    </children>
    <columnConstraints>
       <ColumnConstraints />

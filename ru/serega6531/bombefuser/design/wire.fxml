@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="97.0" prefWidth="509.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.serega6531.bombefuser.Controller">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="10.0" prefWidth="199.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="454.0" minWidth="10.0" prefWidth="343.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="189.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="189.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label prefHeight="33.0" prefWidth="225.0" text="Ender wires colors:" />
+      <Label prefHeight="67.0" prefWidth="146.0" text="Result: " GridPane.rowIndex="1" />
+      <TextField fx:id="WiresField" prefHeight="26.0" prefWidth="254.0" promptText="e.g. red black red blue" GridPane.columnIndex="1" />
+      <Label fx:id="ResultLabel" text="Hidden" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" onAction="#handleSimpleWiresSolveButton" prefHeight="25.0" prefWidth="163.0" text="Solve" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   </children>
+</GridPane>
